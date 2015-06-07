@@ -42,7 +42,7 @@ void main() {
 
 	float bias = min(abs(texture2D(depthtex0, texture.st).x - texture2D(depthtex0, vec2(0.5)).x) * 0.1, 0.5);
   
-  //- For Loop Is Used-//
+   	//- For Loop Is Used-//
   
 	for (int i = 0; i < 16; i++) {
 	sum += calcDepth(offset[i], bias);
