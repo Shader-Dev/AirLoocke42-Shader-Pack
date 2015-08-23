@@ -1,0 +1,29 @@
+//- Noisetex By AirLoocke42 OpenGL Modified In Github, Copyright To AirLoocke42 -//
+
+//- http://www.minecraftforum.net/forums/mapping-and-modding/minecraft-mods/2397517-1-8-1-6-airloocke42-shader-1-8-1-6-13-950 -//
+
+precision mediump float;
+
+uniform float time;
+
+float mat(float n) { return fract(sin(n)*43758.5453); }
+
+float noise(vec2 x){
+    vec2 p = floor(x), f = fract(x);
+    float iRes = 512.0, n = p.x + p.y*iRes;
+    return mix(mix(mat(n-1.0), mat(n),f.x), mix(mat(n+(iRes-1.0)), mat(n+iRes),f.x),f.y);
+}
+
+void main( void ) {
+    float pn = 0.0, freq = 1.0, amp = 1.0;
+	
+    for (int i = 0; i < 5; i++) {
+    pn += noise((gl_FragCoord.xy/40.0)*freq + time * 0.3)*amp; 
+    freq *= 2.1; amp *= 0.5;
+    }	  
+    pn = pn - 0.7;
+
+    gl_FragColor = vec4(pn);
+}
+
+//- http://glslsandbox.com/e#27281.0 -//
